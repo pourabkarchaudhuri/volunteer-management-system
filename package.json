@@ -1,0 +1,31 @@
+{
+  "name": "tau-chatserver",
+  "version": "1.0.0",
+  "description": "server side api for tau",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "forever start -a -o ./out.log -e ./err.log --uid 'tau-chatserver-dev' index.js",
+    "stop": "forever stop tau-chatserver-dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Pourab Karchaudhuri",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0",
+    "request": "^2.85.0",
+    "scribe-js": "^2.0.4"
+  }
+}
