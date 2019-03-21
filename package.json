@@ -1,7 +1,7 @@
 {
-  "name": "tau-chatserver",
+  "name": "volunteer-management-portal",
   "version": "1.0.0",
-  "description": "server side api for tau",
+  "description": "VMS",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -12,7 +12,7 @@
     "type": "git",
     "url": ""
   },
-  "author": "Pourab Karchaudhuri",
+  "author": "Innovation Lab R&D",
   "license": "ISC",
   "bugs": {
     "url": ""
@@ -26,6 +26,7 @@
     "express": "^4.16.3",
     "morgan": "^1.9.0",
     "request": "^2.85.0",
-    "scribe-js": "^2.0.4"
+    "scribe-js": "^2.0.4",
+    "simple-oauth2": "^0.2.1"
   }
 }
