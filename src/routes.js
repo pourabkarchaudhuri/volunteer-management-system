@@ -17,9 +17,10 @@ const viewPath = path.join(__dirname, '../views');
 //Configure paths
 
 router.get('/authorize', function(req, res) {
+    console.log('Authorization Endpoint Hit!');
     var authCode = req.query.code;
     if (authCode) {
-      console.log('');
+      
       console.log('Retrieved auth code in /authorize: ' + authCode);
       authHelper.getTokenFromCode(authCode, tokenReceived, req, res);
     }
@@ -32,16 +33,9 @@ router.get('/authorize', function(req, res) {
 
 router.get('/logincomplete', function(req, res) {
     console.log('login completed successfully');
-    var access_token = req.session.access_token;
-    var refresh_token = req.session.access_token;
-    var email = req.session.email;
-    console.log("EMAIL : " + email)
 
-    if (access_token === undefined || refresh_token === undefined) {
-        console.log('/logincomplete called while not logged in');
-        res.redirect('/');
-        return;
-    }
+    loginCheck(req, res);
+    
     res.sendFile(viewPath + '/index.html');
 });
 
@@ -57,6 +51,7 @@ router.get('/refreshtokens', function(req, res) {
 });
 
 router.get('/logout', function(req, res) {
+    console.log('Logout endpoint called!');
     req.session.destroy();
     res.redirect('/');
 });
@@ -66,21 +61,26 @@ router.get('/logout', function(req, res) {
 router.get("/", function (req, res) {
     console.log("Root page hit!");
     res.send(pages.loginPage(authHelper.getAuthUrl()));
+    console.log('User Name at Root : ', req.cookies.graph_user_name);
 });
 
 router.get("/home", function (req, res) {
+    loginCheck(req, res);
     res.sendFile(viewPath + '/index.html');
 });
 
 router.get("/about", function (req, res) {
+    loginCheck(req, res);
     res.sendFile(viewPath + '/about.html');
 });
 
 router.get("/events", function (req, res) {
+    loginCheck(req, res);
     res.sendFile(viewPath + '/events.html');
 });
 
 router.get("/contact", function (req, res) {
+    loginCheck(req, res);
     res.sendFile(viewPath + '/contact.html');
 });
 
@@ -94,11 +94,22 @@ function tokenReceived(req, res, error, token) {
     }
 else {
     // save tokens in session
+        console.log('Incoming Token : ' + JSON.stringify(token))
         req.session.access_token = token.token.access_token;
         req.session.refresh_token = token.token.refresh_token;
         req.session.email = authHelper.getEmailFromIdToken(token.token.id_token);
         res.redirect('/logincomplete');
     }
+}
+
+function loginCheck(req, res){
+    console.log('Session Data : ' + JSON.stringify(req.session.email));
+    if (req.session.access_token === undefined || req.session.refresh_token === undefined) {
+        console.log('/ called while not logged in');
+        res.redirect('/');
+        // return;
+    }
+  
 }
 
 module.exports = router;

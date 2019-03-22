@@ -24,6 +24,7 @@
     "cors": "^2.8.5",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
+    "express-session": "^1.15.6",
     "morgan": "^1.9.0",
     "request": "^2.85.0",
     "scribe-js": "^2.0.4",
