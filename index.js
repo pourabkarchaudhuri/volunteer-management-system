@@ -28,8 +28,8 @@ var port = process.env.PORT || 5000;
 app.use(cookieParser());
 app.use(session(
     { secret: '0dc529ba-5051-4cd6-8b67-c9a901bb8bdf',
-      resave: false,
-      saveUninitialized: false
+    resave: false,
+    saveUninitialized: false
     }));
 app.use(cors());
 app.use(bodyParser.json()); // support json encoded bodies
