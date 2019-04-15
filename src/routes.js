@@ -93,16 +93,9 @@ router.get("/create_events", function (req, res) {
 router.post("/add_event", function (req, res) {
     dboperation_admin.add_event_by_admin(req.body.event_name, req.body.activity, req.body.work, req.body.location, req.body.hexa_association, req.body.pre_vol_activities, req.body.testimonials, req.body.links, (err, data) => {
         if (err) {
-            var output = {
-                error: {
-                    name: err.name,
-                    message: err.message,
-                    text: err.toString()
-                }
-            };
-            res.send(output)
+            res.send(JSON.stringify({ error: err, status:400 }));
         } else {
-            res.send(data)
+            res.send(JSON.stringify({ result: data, status:200 }));
         }
     })
     //res.sendFile(viewPath + '/events.html');
@@ -112,9 +105,9 @@ router.post("/add_event", function (req, res) {
 router.delete("/delete_event", function (req, res) {
     dboperation_admin.delete_event_by_admin(req.body.event_name, (err, data) => {
         if (err) {
-            res.send('error',err)
+            res.send(JSON.stringify({ error: err, status:400 }));
         } else {
-            res.send(data);
+            res.send(JSON.stringify({ result: data, status:200 }));
         }
     })
     //res.sendFile(viewPath + '/events.html');
@@ -124,9 +117,9 @@ router.delete("/delete_event", function (req, res) {
 router.put("/update_event", function (req, res) {
     dboperation_admin.update_event_by_admin(req.body.event_name, req.body.activity, req.body.work, req.body.location, req.body.hexa_association, req.body.pre_vol_activities, req.body.testimonials, req.body.links, (err, data) => {
         if (err) {
-            res.send('error',err)
+            res.send(JSON.stringify({ error: err, status:400 }));
         } else {
-            res.send(data);
+            res.send(JSON.stringify({ result: data, status:200 }));
         }
     })
     // res.sendFile(viewPath + '/events.html');
@@ -136,9 +129,9 @@ router.put("/update_event", function (req, res) {
 router.post("/attendedToEvent", function (req, res) {
     dboperation_admin.attended_list(req.body.emp_name, req.body.event_name, req.body.email, (err, data) => {
         if (err) {
-            res.send('error',err)
+            res.send(JSON.stringify({ error: err, status:400 }));
         } else {
-            res.send(data);
+            res.send(JSON.stringify({ result: data, status:200 }));
         }
     })
     // res.sendFile(viewPath + '/events.html');
@@ -148,9 +141,9 @@ router.post("/attendedToEvent", function (req, res) {
 router.post("/register_event", function (req, res) {
     dboperation_user.register_event(req.body.emp_name, req.body.emp_id, req.body.contact_no, req.body.email, req.body.event_name, req.body.event_time, (err, data) => {
         if (err) {
-            res.send('error',err)
+            res.send(JSON.stringify({ error: err, status:400 }));
         } else {
-            res.send(data);
+            res.send(JSON.stringify({ result: data, status:200 }));
         }
     })
     // res.sendFile(viewPath + '/events.html');
@@ -160,9 +153,9 @@ router.post("/register_event", function (req, res) {
 router.delete("/del_regi_event", function (req, res) {
     dboperation_user.del_registration_by_user(req.body.event_name, (err, data) => {
         if (err) {
-            res.send('error',err)
+            res.send(JSON.stringify({ error: err, status:400 }));
         } else {
-            res.send(data);
+            res.send(JSON.stringify({ result: data, status:200 }));
         }
     })
     // res.sendFile(viewPath + '/events.html');
@@ -172,9 +165,9 @@ router.delete("/del_regi_event", function (req, res) {
 router.put("/update_event_time", function (req, res) {
     dboperation_user.editSlots_by_user(req.body.event_name, req.body.updated_time, (err, data) => {
         if (err) {
-            res.send('error',err)
+            res.send(JSON.stringify({ error: err, status:400 }));
         } else {
-            res.send(data);
+            res.send(JSON.stringify({ result: data, status:200 }));
         }
     })
     // res.sendFile(viewPath + '/events.html');
